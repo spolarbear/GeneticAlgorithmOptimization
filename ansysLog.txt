@@ -1,0 +1,2005 @@
+
+ ANSYS Multiphysics                                
+
+
+ *------------------------------------------------------------------*
+ |                                                                  |
+ |   W E L C O M E   T O   T H E   A N S Y S (R)  P R O G R A M     |
+ |                                                                  |
+ *------------------------------------------------------------------*
+
+
+
+
+ ***************************************************************
+ *            ANSYS Release 17.0     LEGAL NOTICES             *
+ ***************************************************************
+ *                                                             *
+ * Copyright 2015 SAS IP, Inc.  All rights reserved.           *
+ * Unauthorized use, distribution or duplication is            *
+ * prohibited.                                                 *
+ *                                                             *
+ * Ansys is a registered trademark of ANSYS, Inc. or its       *
+ * subsidiaries in the United States or other countries.       *
+ * See the ANSYS, Inc. online documentation or the ANSYS, Inc. *
+ * documentation CD or online help for the complete Legal      *
+ * Notice.                                                     *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * THIS ANSYS SOFTWARE PRODUCT AND PROGRAM DOCUMENTATION       *
+ * INCLUDE TRADE SECRETS AND CONFIDENTIAL AND PROPRIETARY      *
+ * PRODUCTS OF ANSYS, INC., ITS SUBSIDIARIES, OR LICENSORS.    *
+ * The software products and documentation are furnished by    *
+ * ANSYS, Inc. or its subsidiaries under a software license    *
+ * agreement that contains provisions concerning               *
+ * non-disclosure, copying, length and nature of use,          *
+ * compliance with exporting laws, warranties, disclaimers,    *
+ * limitations of liability, and remedies, and other           *
+ * provisions.  The software products and documentation may be *
+ * used, disclosed, transferred, or copied only in accordance  *
+ * with the terms and conditions of that software license      *
+ * agreement.                                                  *
+ *                                                             *
+ * ANSYS, Inc. is a UL registered                              *
+ * ISO 9001:2008 company.                                      *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * This product is subject to U.S. laws governing export and   *
+ * re-export.                                                  *
+ *                                                             *
+ * For U.S. Government users, except as specifically granted   *
+ * by the ANSYS, Inc. software license agreement, the use,     *
+ * duplication, or disclosure by the United States Government  *
+ * is subject to restrictions stated in the ANSYS, Inc.        *
+ * software license agreement and FAR 12.212 (for non-DOD      *
+ * licenses).                                                  *
+ *                                                             *
+ ***************************************************************
+
+ Release 17.0
+     
+ Point Releases and Patches installed:   
+     
+ ANSYS, Inc. Products Release 17.0   
+ ANSYS Mechanical Products Release 17.0  
+ ANSYS Autodyn Release 17.0  
+ ANSYS LS-DYNA Release 17.0  
+ ANSYS AIM Release 17.0  
+ ANSYS CFX (includes ANSYS CFD-Post) Release 17.0
+ ANSYS Fluent (includes ANSYS CFD-Post) Release 17.0 
+ ANSYS TurboGrid Release 17.0
+ ANSYS Polyflow (includes ANSYS CFD-Post) Release 17.0   
+ ANSYS Forte Release 17.0
+ ANSYS ICEM CFD Release 17.0 
+ ANSYS Aqwa Release 17.0 
+ ANSYS Composite PrepPost Release 17.0   
+ ANSYS Icepak (includes ANSYS CFD-Post) Release 17.0 
+ AutoCAD Release 17.0
+ ACIS Release 17.0   
+ Catia, Version 4 Release 17.0   
+ Catia, Version 6 Release 17.0   
+ Creo Elements/Direct Modeling Release 17.0  
+ Inventor Release 17.0   
+ JTOpen Release 17.0 
+ NX Release 17.0 
+ Parasolid Release 17.0  
+ Creo Parametric (formerly Pro/ENGINEER) Release 17.0
+ Solid Edge Release 17.0 
+ SolidWorks Release 17.0 
+ ANSYS, Inc. License Manager Release 17.0
+
+
+          *****  ANSYS COMMAND LINE ARGUMENTS  *****
+  BATCH MODE REQUESTED (-b)    = LIST
+  INPUT FILE COPY MODE (-c)    = COPY
+
+ RELEASE= Release 17.0         BUILD= 17.0      UP20151214   VERSION=WINDOWS x64 
+ CURRENT JOBNAME=file  12:16:09  MAR 02, 2017 CP=      0.624
+
+     1  /PREP7  
+     2  /INPUT, D:\ghmx\rhinoModelImport.mac
+     3  *CFOPEN,D:\ghmx\ansysModelOut,out   !!输出文件  
+     4      
+     5      
+     6      
+     7  *get,NodeNum,NODE,0,COUNT               !得到模型的所有节点数 
+     8  *get,OUTnd,NODE,0,NUM,MIN                       !得到模型的最小节点编号  
+     9  *dim,OUTnodes,array,NodeNum                     !定义一个存储节点的数组  
+    10  *dim,OUTxyz,array,NodeNum,3                     !定义一个存储节点坐标的数组
+    11  *dim,OUTuxuyuz,array,NodeNum,3                     !定义一个存储节点坐标的数组 
+    12  *dim,OUTNodeTemp,array,NodeNum                  !定义一个存储节点的数组  
+    13  *do,i,1,NodeNum,1   
+    14      OUTnodes(i)=OUTnd                              !将节点编号存储在nodes数组中  
+    15      OUTxyz(i,1)=NX(OUTnd)                          !在xyz(i,1)中存储节点的X坐标
+    16      OUTxyz(i,2)=NY(OUTnd)                          !在xyz(i,1)中存储节点的Y坐标
+    17      OUTxyz(i,3)=NZ(OUTnd)                          !在xyz(i,1)中存储节点的Z坐标
+    18      !*Get,OUTNodeTemp(i),NODE,OUTnodes(i),TEMP  
+    19      OUTnd=NDNEXT(OUTnd)                            !取得下一个节点编号 
+    20  *enddo  
+    21      
+    22  *do,i,1,NodeNum,1   
+    23      OUTnodes(i)=OUTnd                              !将节点编号存储在nodes数组中  
+    24      OUTuxuyuz(i,1)=UX(i)                          !在xyz(i,1)中存储节点的X坐标 
+    25      OUTuxuyuz(i,2)=UY(i)                          !在xyz(i,1)中存储节点的Y坐标 
+    26      OUTuxuyuz(i,3)=UZ(i)                          !在xyz(i,1)中存储节点的Z坐标 
+    27      !*Get,OUTNodeTemp(i),NODE,OUTnodes(i),TEMP  
+    28      OUTnd=NDNEXT(OUTnd)                            !取得下一个节点编号 
+    29  *enddo  
+    30      
+    31  *get,ElementNum,ELEM,0,COUNT                  !得到模型的所有单元数   
+    32  *get,OUTel,ELEM,0,NUM,MIN                        !得到模型的最小单元编号 
+    33  *dim,OUTelems,array,ElementNum                   !定义一个存储单元的数组 
+    34  *dim,OUTndlst,array,ElementNum,8                 !定义一个存储节点坐标的数组   
+    35  *do,i,1,ElementNum,1
+    36      OUTelems(i)=OUTel                               !将单元编号存储在elems数组中 
+    37      *do,j,1,8,1 
+    38          OUTndlst(i,j)=NELEM(OUTel,j)                !将单元对应的节点编号存储在ndlst数组中  
+    39      *enddo  
+    40      OUTel=ELNEXT(OUTel)                             !取得下一个单元编号
+    41  *enddo  
+    42      
+    43  *vwrite,NodeNum,ElementNum  
+    44  ('ZONE n='f6.1,'   e='f6.1,'    f=fepoint','et=brick')  
+    45      
+    46      
+    47  *vwrite,
+    48  ('NODE')
+    49  *vwrite,OUTxyz(1,1),OUTxyz(1,2),OUTxyz(1,3),OUTNodeTemp(1)  
+    50  (4f12.6)
+    51      
+    52  *vwrite,
+    53  ('ELEMENT') 
+    54  !写各单元对应的节点号 
+    55  *vwrite,OUTndlst(1,1),OUTndlst(1,2),OUTndlst(1,3),OUTndlst(1,4),OUTndlst(1,5),OUTndlst(1,6),OUTndlst(1,7),OUTndlst(1,8) 
+    56  (8f6.0) 
+    57      
+    58  *vwrite,
+    59  ('NODEU')   
+    60  *vwrite,OUTuxuyuz(1,1),OUTuxuyuz(1,2),OUTuxuyuz(1,3),OUTNodeTemp(1) 
+    61  (4f12.6)
+    62      
+    63      
+    64  *cfclos 
+    65      
+    66  !内力结果   
+
+ RUN SETUP PROCEDURE FROM FILE= D:\Program Files\ANSYS Inc\v170\ANSYS\apdl\start.ans
+
+ /INPUT FILE= D:\Program Files\ANSYS Inc\v170\ANSYS\apdl\start.ans  LINE=       0
+
+ *** ANSYS - ENGINEERING ANALYSIS SYSTEM  RELEASE Release 17.0     17.0     ***
+ ANSYS Multiphysics                                
+ 00000000  VERSION=WINDOWS x64   12:16:09  MAR 02, 2017 CP=      0.671
+
+                                                                               
+
+
+
+          ***** ANSYS ANALYSIS DEFINITION (PREP7) *****
+
+ /INPUT FILE= D:\ghmx\rhinoModelImport.mac  LINE=       0
+
+
+ ***** ROUTINE COMPLETED *****  CP =         0.671
+
+
+
+ CLEAR DATABASE AND RERUN START.ANS
+
+ RUN SETUP PROCEDURE FROM FILE= D:\Program Files\ANSYS Inc\v170\ANSYS\apdl\start.ans
+
+ ANSYS Multiphysics                                
+
+ /INPUT FILE= D:\Program Files\ANSYS Inc\v170\ANSYS\apdl\start.ans  LINE=       0
+
+ CURRENT JOBNAME REDEFINED AS internalforceinframe
+
+ TITLE= 
+ frame                     !定义分析标题                                 
+
+
+ *** ANSYS - ENGINEERING ANALYSIS SYSTEM  RELEASE Release 17.0     17.0     ***
+ ANSYS Multiphysics                                
+ 00000000  VERSION=WINDOWS x64   12:16:09  MAR 02, 2017 CP=      0.718
+
+ frame                     !定义分析标题                                 
+
+
+
+          ***** ANSYS ANALYSIS DEFINITION (PREP7) *****
+
+ ELEMENT TYPE       1 IS BEAM4        3-D ELASTIC BEAM            
+  KEYOPT( 1- 6)=        0      0      0        0      0      0
+  KEYOPT( 7-12)=        0      0      0        0      0      0
+  KEYOPT(13-18)=        0      0      0        0      0      0
+
+ CURRENT NODAL DOF SET IS  UX    UY    UZ    ROTX  ROTY  ROTZ
+  THREE-DIMENSIONAL MODEL
+
+ MATERIAL         1     EX   =  0.2060000E+12  
+
+ MATERIAL         1     DENS =   7850.000      
+
+ MATERIAL         1     ALPX =  0.1200000E-04  
+
+ MATERIAL         1     PRXY =  0.3000000      
+
+ DEFINE DATA TABLE  BISO  FOR MATERIAL     1
+   WITH A MAXIMUM OF   1 TEMPERATURE SPECIFICATIONS
+
+ TEMPERATURE TO BE USED FOR THE NEXT TBDAT COMMAND=  0.0000    
+    TEMPERATURE SPECIFICATION=  1
+
+ DATA FOR  BISO  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC=  1 0.34500E+09  0.0000    
+
+ REAL CONSTANT SET       1  ITEMS   1 TO   6
+   0.85000E+06   0.0000       0.0000       0.0000       0.0000       0.0000    
+
+ ELEMENT TYPE SET TO         1
+
+ MATERIAL NUMBER SET TO         1
+
+ REAL CONSTANT NUMBER=        1
+
+ NODE         1  KCS=      0  X,Y,Z= -4.7458       7.4058      -5.1332     
+
+ NODE         2  KCS=      0  X,Y,Z= -6.6422       6.9483      -5.1217     
+
+ NODE         3  KCS=      0  X,Y,Z= -8.2193       5.7998      -5.1263     
+
+ NODE         4  KCS=      0  X,Y,Z= -9.2368       4.1353      -5.1416     
+
+ NODE         5  KCS=      0  X,Y,Z= -9.5398       2.2081      -5.1510     
+
+ NODE         6  KCS=      0  X,Y,Z= -9.0823      0.31156      -5.1512     
+
+ NODE         7  KCS=      0  X,Y,Z= -7.9338      -1.2655      -5.1422     
+
+ NODE         8  KCS=      0  X,Y,Z= -6.2693      -2.2830      -5.1306     
+
+ NODE         9  KCS=      0  X,Y,Z= -4.3420      -2.5860      -5.1327     
+
+ NODE        10  KCS=      0  X,Y,Z= -2.4456      -2.1285      -5.1451     
+
+ NODE        11  KCS=      0  X,Y,Z=-0.86851     -0.98003      -5.1518     
+
+ NODE        12  KCS=      0  X,Y,Z= 0.14899      0.68454      -5.1502     
+
+ NODE        13  KCS=      0  X,Y,Z= 0.45204       2.6118      -5.1417     
+
+ NODE        14  KCS=      0  X,Y,Z=-0.55165E-002  4.5083      -5.1422     
+
+ NODE        15  KCS=      0  X,Y,Z= -1.1540       6.0853      -5.1514     
+
+ NODE        16  KCS=      0  X,Y,Z= -2.8186       7.1028      -5.1487     
+
+ NODE        17  KCS=      0  X,Y,Z= -5.1495       17.398      -5.9529     
+
+ NODE        18  KCS=      0  X,Y,Z= -10.839       16.025      -5.8775     
+
+ NODE        19  KCS=      0  X,Y,Z= -15.570       12.580      -5.9077     
+
+ NODE        20  KCS=      0  X,Y,Z= -18.622       7.5861      -6.0070     
+
+ NODE        21  KCS=      0  X,Y,Z= -19.532       1.8044      -6.0677     
+
+ NODE        22  KCS=      0  X,Y,Z= -18.159      -3.8851      -6.0692     
+
+ NODE        23  KCS=      0  X,Y,Z= -14.714      -8.6162      -6.0111     
+
+ NODE        24  KCS=      0  X,Y,Z= -9.7201      -11.669      -5.9357     
+
+ NODE        25  KCS=      0  X,Y,Z= -3.9383      -12.578      -5.9497     
+
+ NODE        26  KCS=      0  X,Y,Z=  1.7511      -11.205      -6.0298     
+
+ NODE        27  KCS=      0  X,Y,Z=  6.4822      -7.7599      -6.0731     
+
+ NODE        28  KCS=      0  X,Y,Z=  9.5348      -2.7662      -6.0628     
+
+ NODE        29  KCS=      0  X,Y,Z=  10.444       3.0155      -6.0081     
+
+ NODE        30  KCS=      0  X,Y,Z=  9.0712       8.7050      -6.0108     
+
+ NODE        31  KCS=      0  X,Y,Z=  5.6258       13.436      -6.0701     
+
+ NODE        32  KCS=      0  X,Y,Z= 0.63207       16.489      -6.0530     
+
+ NODE        33  KCS=      0  X,Y,Z= -6.6422       6.9483     -0.12172     
+
+ NODE        34  KCS=      0  X,Y,Z= -10.839       16.025     -0.87749     
+
+ NODE        35  KCS=      0  X,Y,Z= -5.9569       37.381      -8.7519     
+
+ NODE        36  KCS=      0  X,Y,Z= -19.232       34.179      -8.4850     
+
+ NODE        37  KCS=      0  X,Y,Z= -30.272       26.139      -8.5923     
+
+ NODE        38  KCS=      0  X,Y,Z= -37.394       14.488      -8.9418     
+
+ NODE        39  KCS=      0  X,Y,Z= -39.515      0.99713      -9.1534     
+
+ NODE        40  KCS=      0  X,Y,Z= -36.313      -12.278      -9.1587     
+
+ NODE        41  KCS=      0  X,Y,Z= -28.273      -23.318      -8.9562     
+
+ NODE        42  KCS=      0  X,Y,Z= -16.622      -30.440      -8.6914     
+
+ NODE        43  KCS=      0  X,Y,Z= -3.1309      -32.562      -8.7408     
+
+ NODE        44  KCS=      0  X,Y,Z=  10.144      -29.359      -9.0215     
+
+ NODE        45  KCS=      0  X,Y,Z=  21.184      -21.320      -9.1722     
+
+ NODE        46  KCS=      0  X,Y,Z=  28.306      -9.6676      -9.1365     
+
+ NODE        47  KCS=      0  X,Y,Z=  30.428       3.8230      -8.9458     
+
+ NODE        48  KCS=      0  X,Y,Z=  27.225       17.099      -8.9553     
+
+ NODE        49  KCS=      0  X,Y,Z=  19.185       28.138      -9.1617     
+
+ NODE        50  KCS=      0  X,Y,Z=  7.5334       35.260      -9.1023     
+
+ NODE        51  KCS=      0  X,Y,Z= -19.232       34.179      -3.4850     
+
+ NODE        52  KCS=      0  X,Y,Z= -8.2193       5.7998     -0.12632     
+
+ NODE        53  KCS=      0  X,Y,Z= -15.570       12.580     -0.90769     
+
+ NODE        54  KCS=      0  X,Y,Z= -30.272       26.139      -3.5923     
+
+ NODE        55  KCS=      0  X,Y,Z= -6.7644       57.365      -12.279     
+
+ NODE        56  KCS=      0  X,Y,Z= -27.626       52.332      -11.803     
+
+ NODE        57  KCS=      0  X,Y,Z= -44.973       39.699      -11.995     
+
+ NODE        58  KCS=      0  X,Y,Z= -56.165       21.389      -12.614     
+
+ NODE        59  KCS=      0  X,Y,Z= -59.499      0.18983      -12.985     
+
+ NODE        60  KCS=      0  X,Y,Z= -54.466      -20.672      -12.994     
+
+ NODE        61  KCS=      0  X,Y,Z= -41.833      -38.019      -12.640     
+
+ NODE        62  KCS=      0  X,Y,Z= -23.523      -49.212      -12.172     
+
+ NODE        63  KCS=      0  X,Y,Z= -2.3235      -52.545      -12.259     
+
+ NODE        64  KCS=      0  X,Y,Z=  18.538      -47.512      -12.754     
+
+ NODE        65  KCS=      0  X,Y,Z=  35.885      -34.879      -13.017     
+
+ NODE        66  KCS=      0  X,Y,Z=  47.078      -16.569      -12.955     
+
+ NODE        67  KCS=      0  X,Y,Z=  50.411       4.6305      -12.622     
+
+ NODE        68  KCS=      0  X,Y,Z=  45.378       25.492      -12.638     
+
+ NODE        69  KCS=      0  X,Y,Z=  32.745       42.839      -12.999     
+
+ NODE        70  KCS=      0  X,Y,Z=  14.435       54.032      -12.896     
+
+ NODE        71  KCS=      0  X,Y,Z= -27.626       52.332      -6.8029     
+
+ NODE        72  KCS=      0  X,Y,Z= -44.973       39.699      -6.9948     
+
+ NODE        73  KCS=      0  X,Y,Z= -9.2368       4.1353     -0.14157     
+
+ NODE        74  KCS=      0  X,Y,Z= -18.622       7.5861      -1.0070     
+
+ NODE        75  KCS=      0  X,Y,Z= -37.394       14.488      -3.9418     
+
+ NODE        76  KCS=      0  X,Y,Z= -56.165       21.389      -7.6144     
+
+ NODE        77  KCS=      0  X,Y,Z= -9.5398       2.2081     -0.15099     
+
+ NODE        78  KCS=      0  X,Y,Z= -19.532       1.8044      -1.0677     
+
+ NODE        79  KCS=      0  X,Y,Z= -39.515      0.99713      -4.1534     
+
+ NODE        80  KCS=      0  X,Y,Z= -59.499      0.18983      -7.9848     
+
+ NODE        81  KCS=      0  X,Y,Z= -9.0823      0.31156     -0.15123     
+
+ NODE        82  KCS=      0  X,Y,Z= -18.159      -3.8851      -1.0692     
+
+ NODE        83  KCS=      0  X,Y,Z= -36.313      -12.278      -4.1587     
+
+ NODE        84  KCS=      0  X,Y,Z= -54.466      -20.672      -7.9940     
+
+ NODE        85  KCS=      0  X,Y,Z= -7.9338      -1.2655     -0.14220     
+
+ NODE        86  KCS=      0  X,Y,Z= -14.714      -8.6162      -1.0111     
+
+ NODE        87  KCS=      0  X,Y,Z= -28.273      -23.318      -3.9562     
+
+ NODE        88  KCS=      0  X,Y,Z= -41.833      -38.019      -7.6397     
+
+ NODE        89  KCS=      0  X,Y,Z= -6.2693      -2.2830     -0.13059     
+
+ NODE        90  KCS=      0  X,Y,Z= -9.7201      -11.669     -0.93568     
+
+ NODE        91  KCS=      0  X,Y,Z= -16.622      -30.440      -3.6914     
+
+ NODE        92  KCS=      0  X,Y,Z= -23.523      -49.212      -7.1716     
+
+ NODE        93  KCS=      0  X,Y,Z= -4.3420      -2.5860     -0.13275     
+
+ NODE        94  KCS=      0  X,Y,Z= -3.9383      -12.578     -0.94971     
+
+ NODE        95  KCS=      0  X,Y,Z= -3.1309      -32.562      -3.7408     
+
+ NODE        96  KCS=      0  X,Y,Z= -2.3235      -52.545      -7.2594     
+
+ NODE        97  KCS=      0  X,Y,Z= -2.4456      -2.1285     -0.14510     
+
+ NODE        98  KCS=      0  X,Y,Z=  1.7511      -11.205      -1.0298     
+
+ NODE        99  KCS=      0  X,Y,Z=  10.144      -29.359      -4.0215     
+
+ NODE       100  KCS=      0  X,Y,Z=  18.538      -47.512      -7.7544     
+
+ NODE       101  KCS=      0  X,Y,Z=-0.86851     -0.98003     -0.15184     
+
+ NODE       102  KCS=      0  X,Y,Z=  6.4822      -7.7599      -1.0731     
+
+ NODE       103  KCS=      0  X,Y,Z=  21.184      -21.320      -4.1722     
+
+ NODE       104  KCS=      0  X,Y,Z=  35.885      -34.879      -8.0175     
+
+ NODE       105  KCS=      0  X,Y,Z= 0.14899      0.68454     -0.15023     
+
+ NODE       106  KCS=      0  X,Y,Z=  9.5348      -2.7662      -1.0628     
+
+ NODE       107  KCS=      0  X,Y,Z=  28.306      -9.6676      -4.1365     
+
+ NODE       108  KCS=      0  X,Y,Z=  47.078      -16.569      -7.9553     
+
+ NODE       109  KCS=      0  X,Y,Z= 0.45204       2.6118     -0.14174     
+
+ NODE       110  KCS=      0  X,Y,Z=  10.444       3.0155      -1.0081     
+
+ NODE       111  KCS=      0  X,Y,Z=  30.428       3.8230      -3.9458     
+
+ NODE       112  KCS=      0  X,Y,Z=  50.411       4.6305      -7.6216     
+
+ NODE       113  KCS=      0  X,Y,Z=-0.55165E-002  4.5083     -0.14216     
+
+ NODE       114  KCS=      0  X,Y,Z=  9.0712       8.7050      -1.0108     
+
+ NODE       115  KCS=      0  X,Y,Z=  27.225       17.099      -3.9553     
+
+ NODE       116  KCS=      0  X,Y,Z=  45.378       25.492      -7.6383     
+
+ NODE       117  KCS=      0  X,Y,Z= -1.1540       6.0853     -0.15136     
+
+ NODE       118  KCS=      0  X,Y,Z=  5.6258       13.436      -1.0701     
+
+ NODE       119  KCS=      0  X,Y,Z=  19.185       28.138      -4.1617     
+
+ NODE       120  KCS=      0  X,Y,Z=  32.745       42.839      -7.9991     
+
+ NODE       121  KCS=      0  X,Y,Z= -2.8186       7.1028     -0.14870     
+
+ NODE       122  KCS=      0  X,Y,Z= 0.63207       16.489      -1.0530     
+
+ NODE       123  KCS=      0  X,Y,Z=  7.5334       35.260      -4.1023     
+
+ NODE       124  KCS=      0  X,Y,Z=  14.435       54.032      -7.8956     
+
+ NODE       125  KCS=      0  X,Y,Z= -4.7458       7.4058     -0.13325     
+
+ NODE       126  KCS=      0  X,Y,Z= -5.1495       17.398     -0.95291     
+
+ NODE       127  KCS=      0  X,Y,Z= -5.9569       37.381      -3.7519     
+
+ NODE       128  KCS=      0  X,Y,Z= -6.7644       57.365      -7.2789     
+
+ ELEMENT      1       1    125      0
+
+ ELEMENT      2       2     33      0
+
+ ELEMENT      3       3     52      0
+
+ ELEMENT      4       4     73      0
+
+ ELEMENT      5       5     77      0
+
+ ELEMENT      6       6     81      0
+
+ ELEMENT      7       7     85      0
+
+ ELEMENT      8       8     89      0
+
+ ELEMENT      9       9     93      0
+
+ ELEMENT     10      10     97      0
+
+ ELEMENT     11      11    101      0
+
+ ELEMENT     12      12    105      0
+
+ ELEMENT     13      13    109      0
+
+ ELEMENT     14      14    113      0
+
+ ELEMENT     15      15    117      0
+
+ ELEMENT     16      16    121      0
+
+ ELEMENT     17       2      1      0
+
+ ELEMENT     18       3      2      0
+
+ ELEMENT     19       4      3      0
+
+ ELEMENT     20       5      4      0
+
+ ELEMENT     21       6      5      0
+
+ ELEMENT     22       7      6      0
+
+ ELEMENT     23       8      7      0
+
+ ELEMENT     24       9      8      0
+
+ ELEMENT     25      10      9      0
+
+ ELEMENT     26      11     10      0
+
+ ELEMENT     27      12     11      0
+
+ ELEMENT     28      13     12      0
+
+ ELEMENT     29      14     13      0
+
+ ELEMENT     30      15     14      0
+
+ ELEMENT     31      16     15      0
+
+ ELEMENT     32       1     16      0
+
+ ELEMENT     33     125    126      0
+
+ ELEMENT     34     126    127      0
+
+ ELEMENT     35     127    128      0
+
+ ELEMENT     36     125     33      0
+
+ ELEMENT     37      33     52      0
+
+ ELEMENT     38      52     73      0
+
+ ELEMENT     39      73     77      0
+
+ ELEMENT     40      77     81      0
+
+ ELEMENT     41      81     85      0
+
+ ELEMENT     42      85     89      0
+
+ ELEMENT     43      89     93      0
+
+ ELEMENT     44      93     97      0
+
+ ELEMENT     45      97    101      0
+
+ ELEMENT     46     101    105      0
+
+ ELEMENT     47     105    109      0
+
+ ELEMENT     48     109    113      0
+
+ ELEMENT     49     113    117      0
+
+ ELEMENT     50     117    121      0
+
+ ELEMENT     51     121    125      0
+
+ ELEMENT     52     126      1      0
+
+ ELEMENT     53     127     17      0
+
+ ELEMENT     54     128     35      0
+
+ ELEMENT     55       1     33      0
+
+ ELEMENT     56       2     52      0
+
+ ELEMENT     57       3     73      0
+
+ ELEMENT     58       4     77      0
+
+ ELEMENT     59       5     81      0
+
+ ELEMENT     60       6     85      0
+
+ ELEMENT     61       7     89      0
+
+ ELEMENT     62       8     93      0
+
+ ELEMENT     63       9     97      0
+
+ ELEMENT     64      10    101      0
+
+ ELEMENT     65      11    105      0
+
+ ELEMENT     66      12    109      0
+
+ ELEMENT     67      13    113      0
+
+ ELEMENT     68      14    117      0
+
+ ELEMENT     69      15    121      0
+
+ ELEMENT     70      16    125      0
+
+ ELEMENT     71     125      2      0
+
+ ELEMENT     72      33      3      0
+
+ ELEMENT     73      52      4      0
+
+ ELEMENT     74      73      5      0
+
+ ELEMENT     75      77      6      0
+
+ ELEMENT     76      81      7      0
+
+ ELEMENT     77      85      8      0
+
+ ELEMENT     78      89      9      0
+
+ ELEMENT     79      93     10      0
+
+ ELEMENT     80      97     11      0
+
+ ELEMENT     81     101     12      0
+
+ ELEMENT     82     105     13      0
+
+ ELEMENT     83     109     14      0
+
+ ELEMENT     84     113     15      0
+
+ ELEMENT     85     117     16      0
+
+ ELEMENT     86     121      1      0
+
+ ELEMENT     87     125     34      0
+
+ ELEMENT     88     126     51      0
+
+ ELEMENT     89     127     71      0
+
+ ELEMENT     90     128     71      0
+
+ ELEMENT     91      33    126      0
+
+ ELEMENT     92      34    127      0
+
+ ELEMENT     93      51    128      0
+
+ ELEMENT     94      71    128      0
+
+ ELEMENT     95      17    126      0
+
+ ELEMENT     96      18     34      0
+
+ ELEMENT     97      19     53      0
+
+ ELEMENT     98      20     74      0
+
+ ELEMENT     99      21     78      0
+
+ ELEMENT    100      22     82      0
+
+ ELEMENT    101      23     86      0
+
+ ELEMENT    102      24     90      0
+
+ ELEMENT    103      25     94      0
+
+ ELEMENT    104      26     98      0
+
+ ELEMENT    105      27    102      0
+
+ ELEMENT    106      28    106      0
+
+ ELEMENT    107      29    110      0
+
+ ELEMENT    108      30    114      0
+
+ ELEMENT    109      31    118      0
+
+ ELEMENT    110      32    122      0
+
+ ELEMENT    111      18     17      0
+
+ ELEMENT    112      19     18      0
+
+ ELEMENT    113      20     19      0
+
+ ELEMENT    114      21     20      0
+
+ ELEMENT    115      22     21      0
+
+ ELEMENT    116      23     22      0
+
+ ELEMENT    117      24     23      0
+
+ ELEMENT    118      25     24      0
+
+ ELEMENT    119      26     25      0
+
+ ELEMENT    120      27     26      0
+
+ ELEMENT    121      28     27      0
+
+ ELEMENT    122      29     28      0
+
+ ELEMENT    123      30     29      0
+
+ ELEMENT    124      31     30      0
+
+ ELEMENT    125      32     31      0
+
+ ELEMENT    126      17     32      0
+
+ ELEMENT    127      33     34      0
+
+ ELEMENT    128      34     51      0
+
+ ELEMENT    129      51     71      0
+
+ ELEMENT    130     126     34      0
+
+ ELEMENT    131      34     53      0
+
+ ELEMENT    132      53     74      0
+
+ ELEMENT    133      74     78      0
+
+ ELEMENT    134      78     82      0
+
+ ELEMENT    135      82     86      0
+
+ ELEMENT    136      86     90      0
+
+ ELEMENT    137      90     94      0
+
+ ELEMENT    138      94     98      0
+
+ ELEMENT    139      98    102      0
+
+ ELEMENT    140     102    106      0
+
+ ELEMENT    141     106    110      0
+
+ ELEMENT    142     110    114      0
+
+ ELEMENT    143     114    118      0
+
+ ELEMENT    144     118    122      0
+
+ ELEMENT    145     122    126      0
+
+ ELEMENT    146      34      2      0
+
+ ELEMENT    147      51     18      0
+
+ ELEMENT    148      71     36      0
+
+ ELEMENT    149      17     34      0
+
+ ELEMENT    150      18     53      0
+
+ ELEMENT    151      19     74      0
+
+ ELEMENT    152      20     78      0
+
+ ELEMENT    153      21     82      0
+
+ ELEMENT    154      22     86      0
+
+ ELEMENT    155      23     90      0
+
+ ELEMENT    156      24     94      0
+
+ ELEMENT    157      25     98      0
+
+ ELEMENT    158      26    102      0
+
+ ELEMENT    159      27    106      0
+
+ ELEMENT    160      28    110      0
+
+ ELEMENT    161      29    114      0
+
+ ELEMENT    162      30    118      0
+
+ ELEMENT    163      31    122      0
+
+ ELEMENT    164      32    126      0
+
+ ELEMENT    165     126     18      0
+
+ ELEMENT    166      34     19      0
+
+ ELEMENT    167      53     20      0
+
+ ELEMENT    168      74     21      0
+
+ ELEMENT    169      78     22      0
+
+ ELEMENT    170      82     23      0
+
+ ELEMENT    171      86     24      0
+
+ ELEMENT    172      90     25      0
+
+ ELEMENT    173      94     26      0
+
+ ELEMENT    174      98     27      0
+
+ ELEMENT    175     102     28      0
+
+ ELEMENT    176     106     29      0
+
+ ELEMENT    177     110     30      0
+
+ ELEMENT    178     114     31      0
+
+ ELEMENT    179     118     32      0
+
+ ELEMENT    180     122     17      0
+
+ ELEMENT    181      33     53      0
+
+ ELEMENT    182      34     54      0
+
+ ELEMENT    183      51     72      0
+
+ ELEMENT    184      71     72      0
+
+ ELEMENT    185      52     34      0
+
+ ELEMENT    186      53     51      0
+
+ ELEMENT    187      54     71      0
+
+ ELEMENT    188      72     71      0
+
+ ELEMENT    189      35    127      0
+
+ ELEMENT    190      36     51      0
+
+ ELEMENT    191      37     54      0
+
+ ELEMENT    192      38     75      0
+
+ ELEMENT    193      39     79      0
+
+ ELEMENT    194      40     83      0
+
+ ELEMENT    195      41     87      0
+
+ ELEMENT    196      42     91      0
+
+ ELEMENT    197      43     95      0
+
+ ELEMENT    198      44     99      0
+
+ ELEMENT    199      45    103      0
+
+ ELEMENT    200      46    107      0
+
+ ELEMENT    201      47    111      0
+
+ ELEMENT    202      48    115      0
+
+ ELEMENT    203      49    119      0
+
+ ELEMENT    204      50    123      0
+
+ ELEMENT    205      36     35      0
+
+ ELEMENT    206      37     36      0
+
+ ELEMENT    207      38     37      0
+
+ ELEMENT    208      39     38      0
+
+ ELEMENT    209      40     39      0
+
+ ELEMENT    210      41     40      0
+
+ ELEMENT    211      42     41      0
+
+ ELEMENT    212      43     42      0
+
+ ELEMENT    213      44     43      0
+
+ ELEMENT    214      45     44      0
+
+ ELEMENT    215      46     45      0
+
+ ELEMENT    216      47     46      0
+
+ ELEMENT    217      48     47      0
+
+ ELEMENT    218      49     48      0
+
+ ELEMENT    219      50     49      0
+
+ ELEMENT    220      35     50      0
+
+ ELEMENT    221      52     53      0
+
+ ELEMENT    222      53     54      0
+
+ ELEMENT    223      54     72      0
+
+ ELEMENT    224     127     51      0
+
+ ELEMENT    225      51     54      0
+
+ ELEMENT    226      54     75      0
+
+ ELEMENT    227      75     79      0
+
+ ELEMENT    228      79     83      0
+
+ ELEMENT    229      83     87      0
+
+ ELEMENT    230      87     91      0
+
+ ELEMENT    231      91     95      0
+
+ ELEMENT    232      95     99      0
+
+ ELEMENT    233      99    103      0
+
+ ELEMENT    234     103    107      0
+
+ ELEMENT    235     107    111      0
+
+ ELEMENT    236     111    115      0
+
+ ELEMENT    237     115    119      0
+
+ ELEMENT    238     119    123      0
+
+ ELEMENT    239     123    127      0
+
+ ELEMENT    240      53      3      0
+
+ ELEMENT    241      54     19      0
+
+ ELEMENT    242      72     37      0
+
+ ELEMENT    243      35     51      0
+
+ ELEMENT    244      36     54      0
+
+ ELEMENT    245      37     75      0
+
+ ELEMENT    246      38     79      0
+
+ ELEMENT    247      39     83      0
+
+ ELEMENT    248      40     87      0
+
+ ELEMENT    249      41     91      0
+
+ ELEMENT    250      42     95      0
+
+ ELEMENT    251      43     99      0
+
+ ELEMENT    252      44    103      0
+
+ ELEMENT    253      45    107      0
+
+ ELEMENT    254      46    111      0
+
+ ELEMENT    255      47    115      0
+
+ ELEMENT    256      48    119      0
+
+ ELEMENT    257      49    123      0
+
+ ELEMENT    258      50    127      0
+
+ ELEMENT    259     127     36      0
+
+ ELEMENT    260      51     37      0
+
+ ELEMENT    261      54     38      0
+
+ ELEMENT    262      75     39      0
+
+ ELEMENT    263      79     40      0
+
+ ELEMENT    264      83     41      0
+
+ ELEMENT    265      87     42      0
+
+ ELEMENT    266      91     43      0
+
+ ELEMENT    267      95     44      0
+
+ ELEMENT    268      99     45      0
+
+ ELEMENT    269     103     46      0
+
+ ELEMENT    270     107     47      0
+
+ ELEMENT    271     111     48      0
+
+ ELEMENT    272     115     49      0
+
+ ELEMENT    273     119     50      0
+
+ ELEMENT    274     123     35      0
+
+ ELEMENT    275      52     74      0
+
+ ELEMENT    276      53     75      0
+
+ ELEMENT    277      54     76      0
+
+ ELEMENT    278      72     76      0
+
+ ELEMENT    279      73     53      0
+
+ ELEMENT    280      74     54      0
+
+ ELEMENT    281      75     72      0
+
+ ELEMENT    282      76     72      0
+
+ ELEMENT    283      55    128      0
+
+ ELEMENT    284      56     71      0
+
+ ELEMENT    285      57     72      0
+
+ ELEMENT    286      58     76      0
+
+ ELEMENT    287      59     80      0
+
+ ELEMENT    288      60     84      0
+
+ ELEMENT    289      61     88      0
+
+ ELEMENT    290      62     92      0
+
+ ELEMENT    291      63     96      0
+
+ ELEMENT    292      64    100      0
+
+ ELEMENT    293      65    104      0
+
+ ELEMENT    294      66    108      0
+
+ ELEMENT    295      67    112      0
+
+ ELEMENT    296      68    116      0
+
+ ELEMENT    297      69    120      0
+
+ ELEMENT    298      70    124      0
+
+ ELEMENT    299      56     55      0
+
+ ELEMENT    300      57     56      0
+
+ ELEMENT    301      58     57      0
+
+ ELEMENT    302      59     58      0
+
+ ELEMENT    303      60     59      0
+
+ ELEMENT    304      61     60      0
+
+ ELEMENT    305      62     61      0
+
+ ELEMENT    306      63     62      0
+
+ ELEMENT    307      64     63      0
+
+ ELEMENT    308      65     64      0
+
+ ELEMENT    309      66     65      0
+
+ ELEMENT    310      67     66      0
+
+ ELEMENT    311      68     67      0
+
+ ELEMENT    312      69     68      0
+
+ ELEMENT    313      70     69      0
+
+ ELEMENT    314      55     70      0
+
+ ELEMENT    315      73     74      0
+
+ ELEMENT    316      74     75      0
+
+ ELEMENT    317      75     76      0
+
+ ELEMENT    318     128     71      0
+
+ ELEMENT    319      71     72      0
+
+ ELEMENT    320      72     76      0
+
+ ELEMENT    321      76     80      0
+
+ ELEMENT    322      80     84      0
+
+ ELEMENT    323      84     88      0
+
+ ELEMENT    324      88     92      0
+
+ ELEMENT    325      92     96      0
+
+ ELEMENT    326      96    100      0
+
+ ELEMENT    327     100    104      0
+
+ ELEMENT    328     104    108      0
+
+ ELEMENT    329     108    112      0
+
+ ELEMENT    330     112    116      0
+
+ ELEMENT    331     116    120      0
+
+ ELEMENT    332     120    124      0
+
+ ELEMENT    333     124    128      0
+
+ ELEMENT    334      74      4      0
+
+ ELEMENT    335      75     20      0
+
+ ELEMENT    336      76     38      0
+
+ ELEMENT    337      55     71      0
+
+ ELEMENT    338      56     72      0
+
+ ELEMENT    339      57     76      0
+
+ ELEMENT    340      58     80      0
+
+ ELEMENT    341      59     84      0
+
+ ELEMENT    342      60     88      0
+
+ ELEMENT    343      61     92      0
+
+ ELEMENT    344      62     96      0
+
+ ELEMENT    345      63    100      0
+
+ ELEMENT    346      64    104      0
+
+ ELEMENT    347      65    108      0
+
+ ELEMENT    348      66    112      0
+
+ ELEMENT    349      67    116      0
+
+ ELEMENT    350      68    120      0
+
+ ELEMENT    351      69    124      0
+
+ ELEMENT    352      70    128      0
+
+ ELEMENT    353     128     56      0
+
+ ELEMENT    354      71     57      0
+
+ ELEMENT    355      72     58      0
+
+ ELEMENT    356      76     59      0
+
+ ELEMENT    357      80     60      0
+
+ ELEMENT    358      84     61      0
+
+ ELEMENT    359      88     62      0
+
+ ELEMENT    360      92     63      0
+
+ ELEMENT    361      96     64      0
+
+ ELEMENT    362     100     65      0
+
+ ELEMENT    363     104     66      0
+
+ ELEMENT    364     108     67      0
+
+ ELEMENT    365     112     68      0
+
+ ELEMENT    366     116     69      0
+
+ ELEMENT    367     120     70      0
+
+ ELEMENT    368     124     55      0
+
+ ELEMENT    369      73     78      0
+
+ ELEMENT    370      74     79      0
+
+ ELEMENT    371      75     80      0
+
+ ELEMENT    372      76     80      0
+
+ ELEMENT    373      77     74      0
+
+ ELEMENT    374      78     75      0
+
+ ELEMENT    375      79     76      0
+
+ ELEMENT    376      80     76      0
+
+ ELEMENT    377      77     78      0
+
+ ELEMENT    378      78     79      0
+
+ ELEMENT    379      79     80      0
+
+ ELEMENT    380      78      5      0
+
+ ELEMENT    381      79     21      0
+
+ ELEMENT    382      80     39      0
+
+ ELEMENT    383      77     82      0
+
+ ELEMENT    384      78     83      0
+
+ ELEMENT    385      79     84      0
+
+ ELEMENT    386      80     84      0
+
+ ELEMENT    387      81     78      0
+
+ ELEMENT    388      82     79      0
+
+ ELEMENT    389      83     80      0
+
+ ELEMENT    390      84     80      0
+
+ ELEMENT    391      81     82      0
+
+ ELEMENT    392      82     83      0
+
+ ELEMENT    393      83     84      0
+
+ ELEMENT    394      82      6      0
+
+ ELEMENT    395      83     22      0
+
+ ELEMENT    396      84     40      0
+
+ ELEMENT    397      81     86      0
+
+ ELEMENT    398      82     87      0
+
+ ELEMENT    399      83     88      0
+
+ ELEMENT    400      84     88      0
+
+ ELEMENT    401      85     82      0
+
+ ELEMENT    402      86     83      0
+
+ ELEMENT    403      87     84      0
+
+ ELEMENT    404      88     84      0
+
+ ELEMENT    405      85     86      0
+
+ ELEMENT    406      86     87      0
+
+ ELEMENT    407      87     88      0
+
+ ELEMENT    408      86      7      0
+
+ ELEMENT    409      87     23      0
+
+ ELEMENT    410      88     41      0
+
+ ELEMENT    411      85     90      0
+
+ ELEMENT    412      86     91      0
+
+ ELEMENT    413      87     92      0
+
+ ELEMENT    414      88     92      0
+
+ ELEMENT    415      89     86      0
+
+ ELEMENT    416      90     87      0
+
+ ELEMENT    417      91     88      0
+
+ ELEMENT    418      92     88      0
+
+ ELEMENT    419      89     90      0
+
+ ELEMENT    420      90     91      0
+
+ ELEMENT    421      91     92      0
+
+ ELEMENT    422      90      8      0
+
+ ELEMENT    423      91     24      0
+
+ ELEMENT    424      92     42      0
+
+ ELEMENT    425      89     94      0
+
+ ELEMENT    426      90     95      0
+
+ ELEMENT    427      91     96      0
+
+ ELEMENT    428      92     96      0
+
+ ELEMENT    429      93     90      0
+
+ ELEMENT    430      94     91      0
+
+ ELEMENT    431      95     92      0
+
+ ELEMENT    432      96     92      0
+
+ ELEMENT    433      93     94      0
+
+ ELEMENT    434      94     95      0
+
+ ELEMENT    435      95     96      0
+
+ ELEMENT    436      94      9      0
+
+ ELEMENT    437      95     25      0
+
+ ELEMENT    438      96     43      0
+
+ ELEMENT    439      93     98      0
+
+ ELEMENT    440      94     99      0
+
+ ELEMENT    441      95    100      0
+
+ ELEMENT    442      96    100      0
+
+ ELEMENT    443      97     94      0
+
+ ELEMENT    444      98     95      0
+
+ ELEMENT    445      99     96      0
+
+ ELEMENT    446     100     96      0
+
+ ELEMENT    447      97     98      0
+
+ ELEMENT    448      98     99      0
+
+ ELEMENT    449      99    100      0
+
+ ELEMENT    450      98     10      0
+
+ ELEMENT    451      99     26      0
+
+ ELEMENT    452     100     44      0
+
+ ELEMENT    453      97    102      0
+
+ ELEMENT    454      98    103      0
+
+ ELEMENT    455      99    104      0
+
+ ELEMENT    456     100    104      0
+
+ ELEMENT    457     101     98      0
+
+ ELEMENT    458     102     99      0
+
+ ELEMENT    459     103    100      0
+
+ ELEMENT    460     104    100      0
+
+ ELEMENT    461     101    102      0
+
+ ELEMENT    462     102    103      0
+
+ ELEMENT    463     103    104      0
+
+ ELEMENT    464     102     11      0
+
+ ELEMENT    465     103     27      0
+
+ ELEMENT    466     104     45      0
+
+ ELEMENT    467     101    106      0
+
+ ELEMENT    468     102    107      0
+
+ ELEMENT    469     103    108      0
+
+ ELEMENT    470     104    108      0
+
+ ELEMENT    471     105    102      0
+
+ ELEMENT    472     106    103      0
+
+ ELEMENT    473     107    104      0
+
+ ELEMENT    474     108    104      0
+
+ ELEMENT    475     105    106      0
+
+ ELEMENT    476     106    107      0
+
+ ELEMENT    477     107    108      0
+
+ ELEMENT    478     106     12      0
+
+ ELEMENT    479     107     28      0
+
+ ELEMENT    480     108     46      0
+
+ ELEMENT    481     105    110      0
+
+ ELEMENT    482     106    111      0
+
+ ELEMENT    483     107    112      0
+
+ ELEMENT    484     108    112      0
+
+ ELEMENT    485     109    106      0
+
+ ELEMENT    486     110    107      0
+
+ ELEMENT    487     111    108      0
+
+ ELEMENT    488     112    108      0
+
+ ELEMENT    489     109    110      0
+
+ ELEMENT    490     110    111      0
+
+ ELEMENT    491     111    112      0
+
+ ELEMENT    492     110     13      0
+
+ ELEMENT    493     111     29      0
+
+ ELEMENT    494     112     47      0
+
+ ELEMENT    495     109    114      0
+
+ ELEMENT    496     110    115      0
+
+ ELEMENT    497     111    116      0
+
+ ELEMENT    498     112    116      0
+
+ ELEMENT    499     113    110      0
+
+ ELEMENT    500     114    111      0
+
+ ELEMENT    501     115    112      0
+
+ ELEMENT    502     116    112      0
+
+ ELEMENT    503     113    114      0
+
+ ELEMENT    504     114    115      0
+
+ ELEMENT    505     115    116      0
+
+ ELEMENT    506     114     14      0
+
+ ELEMENT    507     115     30      0
+
+ ELEMENT    508     116     48      0
+
+ ELEMENT    509     113    118      0
+
+ ELEMENT    510     114    119      0
+
+ ELEMENT    511     115    120      0
+
+ ELEMENT    512     116    120      0
+
+ ELEMENT    513     117    114      0
+
+ ELEMENT    514     118    115      0
+
+ ELEMENT    515     119    116      0
+
+ ELEMENT    516     120    116      0
+
+ ELEMENT    517     117    118      0
+
+ ELEMENT    518     118    119      0
+
+ ELEMENT    519     119    120      0
+
+ ELEMENT    520     118     15      0
+
+ ELEMENT    521     119     31      0
+
+ ELEMENT    522     120     49      0
+
+ ELEMENT    523     117    122      0
+
+ ELEMENT    524     118    123      0
+
+ ELEMENT    525     119    124      0
+
+ ELEMENT    526     120    124      0
+
+ ELEMENT    527     121    118      0
+
+ ELEMENT    528     122    119      0
+
+ ELEMENT    529     123    120      0
+
+ ELEMENT    530     124    120      0
+
+ ELEMENT    531     121    122      0
+
+ ELEMENT    532     122    123      0
+
+ ELEMENT    533     123    124      0
+
+ ELEMENT    534     122     16      0
+
+ ELEMENT    535     123     32      0
+
+ ELEMENT    536     124     50      0
+
+ ELEMENT    537     121    126      0
+
+ ELEMENT    538     122    127      0
+
+ ELEMENT    539     123    128      0
+
+ ELEMENT    540     124    128      0
+
+ ELEMENT    541     125    122      0
+
+ ELEMENT    542     126    123      0
+
+ ELEMENT    543     127    124      0
+
+ SPECIFIED CONSTRAINT UX   FOR SELECTED NODES        55 TO       55 BY        1
+ REAL=  0.00000000       IMAG=  0.00000000    
+ ADDITIONAL DOFS=  UY    UZ    ROTX  ROTY  ROTZ
+
+ SPECIFIED CONSTRAINT UX   FOR SELECTED NODES        56 TO       56 BY        1
+ REAL=  0.00000000       IMAG=  0.00000000    
+ ADDITIONAL DOFS=  UY    UZ    ROTX  ROTY  ROTZ
+
+ SPECIFIED CONSTRAINT UX   FOR SELECTED NODES        57 TO       57 BY        1
+ REAL=  0.00000000       IMAG=  0.00000000    
+ ADDITIONAL DOFS=  UY    UZ    ROTX  ROTY  ROTZ
+
+ SPECIFIED CONSTRAINT UX   FOR SELECTED NODES        58 TO       58 BY        1
+ REAL=  0.00000000       IMAG=  0.00000000    
+ ADDITIONAL DOFS=  UY    UZ    ROTX  ROTY  ROTZ
+
+ SPECIFIED CONSTRAINT UX   FOR SELECTED NODES        59 TO       59 BY        1
+ REAL=  0.00000000       IMAG=  0.00000000    
+ ADDITIONAL DOFS=  UY    UZ    ROTX  ROTY  ROTZ
+
+ SPECIFIED CONSTRAINT UX   FOR SELECTED NODES        60 TO       60 BY        1
+ REAL=  0.00000000       IMAG=  0.00000000    
+ ADDITIONAL DOFS=  UY    UZ    ROTX  ROTY  ROTZ
+
+ SPECIFIED CONSTRAINT UX   FOR SELECTED NODES        61 TO       61 BY        1
+ REAL=  0.00000000       IMAG=  0.00000000    
+ ADDITIONAL DOFS=  UY    UZ    ROTX  ROTY  ROTZ
+
+ SPECIFIED CONSTRAINT UX   FOR SELECTED NODES        62 TO       62 BY        1
+ REAL=  0.00000000       IMAG=  0.00000000    
+ ADDITIONAL DOFS=  UY    UZ    ROTX  ROTY  ROTZ
+
+ SPECIFIED CONSTRAINT UX   FOR SELECTED NODES        63 TO       63 BY        1
+ REAL=  0.00000000       IMAG=  0.00000000    
+ ADDITIONAL DOFS=  UY    UZ    ROTX  ROTY  ROTZ
+
+ SPECIFIED CONSTRAINT UX   FOR SELECTED NODES        64 TO       64 BY        1
+ REAL=  0.00000000       IMAG=  0.00000000    
+ ADDITIONAL DOFS=  UY    UZ    ROTX  ROTY  ROTZ
+
+ SPECIFIED CONSTRAINT UX   FOR SELECTED NODES        65 TO       65 BY        1
+ REAL=  0.00000000       IMAG=  0.00000000    
+ ADDITIONAL DOFS=  UY    UZ    ROTX  ROTY  ROTZ
+
+ SPECIFIED CONSTRAINT UX   FOR SELECTED NODES        66 TO       66 BY        1
+ REAL=  0.00000000       IMAG=  0.00000000    
+ ADDITIONAL DOFS=  UY    UZ    ROTX  ROTY  ROTZ
+
+ SPECIFIED CONSTRAINT UX   FOR SELECTED NODES        67 TO       67 BY        1
+ REAL=  0.00000000       IMAG=  0.00000000    
+ ADDITIONAL DOFS=  UY    UZ    ROTX  ROTY  ROTZ
+
+ SPECIFIED CONSTRAINT UX   FOR SELECTED NODES        68 TO       68 BY        1
+ REAL=  0.00000000       IMAG=  0.00000000    
+ ADDITIONAL DOFS=  UY    UZ    ROTX  ROTY  ROTZ
+
+ SPECIFIED CONSTRAINT UX   FOR SELECTED NODES        69 TO       69 BY        1
+ REAL=  0.00000000       IMAG=  0.00000000    
+ ADDITIONAL DOFS=  UY    UZ    ROTX  ROTY  ROTZ
+
+ SPECIFIED CONSTRAINT UX   FOR SELECTED NODES        70 TO       70 BY        1
+ REAL=  0.00000000       IMAG=  0.00000000    
+ ADDITIONAL DOFS=  UY    UZ    ROTX  ROTY  ROTZ
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ ACEL=    0.0000      0.0000      9.8000    
+
+
+ ***** ROUTINE COMPLETED *****  CP =         0.718
+
+
+
+ *****  ANSYS SOLUTION ROUTINE  *****
+
+
+ PERFORM A STATIC ANALYSIS
+  THIS WILL BE A NEW ANALYSIS
+
+ USE SPARSE MATRIX DIRECT SOLVER
+
+
+ CALCULATE PRESTRESS EFFECTS FOR A SUBSEQUENT PRESTRESSED ANALYSIS
+
+ *****  ANSYS SOLVE    COMMAND  *****
+
+ *** ANSYS - ENGINEERING ANALYSIS SYSTEM  RELEASE Release 17.0     17.0     ***
+ ANSYS Multiphysics                                
+ 00000000  VERSION=WINDOWS x64   12:16:09  MAR 02, 2017 CP=      0.718
+
+ frame                     !定义分析标题                                 
+
+
+
+                       S O L U T I O N   O P T I O N S
+
+   PROBLEM DIMENSIONALITY. . . . . . . . . . . . .3-D                  
+   DEGREES OF FREEDOM. . . . . . UX   UY   UZ   ROTX ROTY ROTZ
+   ANALYSIS TYPE . . . . . . . . . . . . . . . . .STATIC (STEADY-STATE)
+   PRESTRESS EFFECTS CALCULATED. . . . . . . . . .YES
+   EQUATION SOLVER OPTION. . . . . . . . . . . . .SPARSE             
+   PLASTIC MATERIAL PROPERTIES INCLUDED. . . . . .YES
+   NEWTON-RAPHSON OPTION . . . . . . . . . . . . .PROGRAM CHOSEN   
+   GLOBALLY ASSEMBLED MATRIX . . . . . . . . . . .SYMMETRIC  
+
+ *** WARNING ***                         CP =       0.718   TIME= 12:16:09
+ Zero thickness element 1 may result in wrong thermal or bending stress. 
+  Check real constant table 1.                                           
+
+ *** WARNING ***                         CP =       0.718   TIME= 12:16:09
+ Zero moment of inertia for element 1.  Check real constant table 1.     
+
+ *** NOTE ***                            CP =       0.718   TIME= 12:16:09
+ Present time 0 is less than or equal to the previous time.  Time will   
+ default to 1.                                                           
+
+ *** NOTE ***                            CP =       0.718   TIME= 12:16:09
+ The step data was checked and warning messages were found.              
+  Please review output or errors file ( c:\Program Files\Rhinoceros 5    
+ (64-bit)\System\file.err ) for these warning messages.                  
+
+ *** NOTE ***                            CP =       0.718   TIME= 12:16:09
+ This nonlinear analysis defaults to using the full Newton-Raphson       
+ solution procedure.  This can be modified using the NROPT command.      
+
+ *** WARNING ***                         CP =       0.718   TIME= 12:16:09
+ The program chosen initial timestep/load-factor is arbitrary.  It is    
+ necessary for the user to supply a suitable initial                     
+ timestep/load-factor through the NSUB or DELTIM command for             
+ convergence and overall efficiency.                                     
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     1
+   TIME AT END OF THE LOAD STEP. . . . . . . . . .  1.0000    
+   AUTOMATIC TIME STEPPING . . . . . . . . . . . .    ON
+      INITIAL NUMBER OF SUBSTEPS . . . . . . . . .     1
+      MAXIMUM NUMBER OF SUBSTEPS . . . . . . . . .  1000
+      MINIMUM NUMBER OF SUBSTEPS . . . . . . . . .     1
+      START WITH TIME STEP FROM PREVIOUS SUBSTEP .   YES
+   MAXIMUM NUMBER OF EQUILIBRIUM ITERATIONS. . . .    15
+   STEP CHANGE BOUNDARY CONDITIONS . . . . . . . .    NO
+   TERMINATE ANALYSIS IF NOT CONVERGED . . . . . .YES (EXIT)  
+   CONVERGENCE CONTROLS. . . . . . . . . . . . . .USE DEFAULTS
+   INERTIA LOADS                        X           Y           Z 
+      ACEL . . . . . . . . . . . .  0.0000      0.0000      9.8000    
+   COPY INTEGRATION POINT VALUES TO NODE . . . . .YES, FOR ELEMENTS WITH
+                                                  ACTIVE MAT. NONLINEARITIES
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS. . . . . . . . . . . .ALL DATA WRITTEN
+                                                  FOR THE LAST SUBSTEP
+
+
+ SOLUTION MONITORING INFO IS WRITTEN TO FILE= internalforceinframe.mntr                                                                                                                                                                                                                                           
+
+
+
+                         ***********  PRECISE MASS SUMMARY  ***********
+
+   TOTAL RIGID BODY MASS MATRIX ABOUT ORIGIN
+               Translational mass               |   Coupled translational/rotational mass
+        0.49840E+14  -0.26952E-03  -0.90531E-05 |   -0.15989E-02  -0.28878E+15  -0.11244E+15
+       -0.28852E-03   0.49840E+14   0.25415E-04 |    0.28878E+15   0.18310E-02  -0.22761E+15
+       -0.18697E-04   0.21893E-04   0.49840E+14 |    0.11244E+15   0.22761E+15   0.92827E-04
+     ------------------------------------------ | ------------------------------------------
+                                                |         Rotational mass (inertia)
+                                                |    0.40947E+17   0.57543E+15  -0.12131E+16
+                                                |    0.57543E+15   0.42130E+17   0.56400E+15
+                                                |   -0.12131E+16   0.56400E+15   0.78667E+17
+
+   TOTAL MASS = 0.49840E+14
+     The mass principal axes coincide with the global Cartesian axes
+
+   CENTER OF MASS (X,Y,Z)=   -4.5668        2.2561       -5.7943    
+
+   TOTAL INERTIA ABOUT CENTER OF MASS
+        0.39020E+17   0.61923E+14   0.10566E+15
+        0.61923E+14   0.39417E+17  -0.87521E+14
+        0.10566E+15  -0.87521E+14   0.77374E+17
+
+   PRINCIPAL INERTIAS =   0.39010E+17   0.39427E+17   0.77375E+17
+   ORIENTATION VECTORS OF THE INERTIA PRINCIPAL AXES IN GLOBAL CARTESIAN
+     ( 0.989,-0.151,-0.003) ( 0.151, 0.989, 0.002) ( 0.003,-0.002, 1.000) 
+
+
+  *** MASS SUMMARY BY ELEMENT TYPE ***
+
+  TYPE      MASS
+     1  0.498397E+14
+
+ Range of element maximum matrix coefficients in global coordinates
+ Maximum = 8.758662162E+16 at element 43.                                
+ Minimum = 3.846776087E+15 at element 543.                               
+
+   *** ELEMENT MATRIX FORMULATION TIMES
+  TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+     1       543  BEAM4         0.000   0.000000
+ Time at end of element matrix formulation CP = 0.842405379.             
+
+ ALL CURRENT ANSYS DATA WRITTEN TO FILE NAME= internalforceinframe.rdb
+  FOR POSSIBLE RESUME FROM THIS POINT
+     FORCE CONVERGENCE VALUE  = 0.5107E+14  CRITERION= 0.2606E+12
+     MOMENT CONVERGENCE VALUE = 0.6415E+14  CRITERION= 0.3273E+12
+
+ SPARSE MATRIX DIRECT SOLVER.
+  Number of equations =         336,    Maximum wavefront =     54
+  Memory allocated for solver =          15.259 MB
+  Memory required for in-core =           0.322 MB
+  Memory required for out-of-core =       0.170 MB
+
+
+ *** NOTE ***                            CP =       0.874   TIME= 12:16:09
+ The Sparse Matrix solver is currently running in the in-core memory     
+ mode.  This memory mode uses the most amount of memory in order to      
+ avoid using the hard drive as much as possible, which most often        
+ results in the fastest solution time.  This mode is recommended if      
+ enough physical memory is present to accommodate all of the solver      
+ data.                                                                   
+ Sparse solver maximum pivot= 1.736524548E+17 at node 121 UX.            
+ Sparse solver minimum pivot= 6.240343021E+14 at node 54 UZ.             
+ Sparse solver minimum pivot in absolute value= 6.240343021E+14 at node  
+ 54 UZ.                                                                  
+     DISP CONVERGENCE VALUE   = 0.1417      CRITERION= 0.7228E-02
+    EQUIL ITER   1 COMPLETED.  NEW TRIANG MATRIX.  MAX DOF INC= -0.1417    
+     FORCE CONVERGENCE VALUE  =  96.44      CRITERION= 0.6580E+12 <<< CONVERGED
+     MOMENT CONVERGENCE VALUE =  0.000      CRITERION= 0.1539E+12 <<< CONVERGED
+     DISP CONVERGENCE VALUE   = 0.1261E-13  CRITERION= 0.7375E-02 <<< CONVERGED
+    EQUIL ITER   2 COMPLETED.  NEW TRIANG MATRIX.  MAX DOF INC = -0.1261E-13
+    >>> SOLUTION CONVERGED AFTER EQUILIBRIUM ITERATION   2
+
+   *** ELEMENT RESULT CALCULATION TIMES
+  TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+     1       543  BEAM4         0.000   0.000000
+
+   *** NODAL LOAD CALCULATION TIMES
+  TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+     1       543  BEAM4         0.000   0.000000
+ *** LOAD STEP     1   SUBSTEP     1  COMPLETED.    CUM ITER =      2
+ *** TIME =   1.00000         TIME INC =   1.00000    
+
+
+ *** ANSYS BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+        1.500 MB WRITTEN ON ELEMENT MATRIX FILE: internalforceinframe.emat
+        0.438 MB WRITTEN ON ELEMENT SAVED DATA FILE: internalforceinframe.esav
+        0.125 MB WRITTEN ON ASSEMBLED MATRIX FILE: internalforceinframe.full
+        0.625 MB WRITTEN ON RESULTS FILE: internalforceinframe.rst
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =         0.952
+
+
+
+ *** ANSYS - ENGINEERING ANALYSIS SYSTEM  RELEASE Release 17.0     17.0     ***
+ ANSYS Multiphysics                                
+ 00000000  VERSION=WINDOWS x64   12:16:09  MAR 02, 2017 CP=      0.952
+
+ frame                     !定义分析标题                                 
+
+
+
+          ***** ANSYS RESULTS INTERPRETATION (POST1) *****
+
+ *** NOTE ***                            CP =       0.952   TIME= 12:16:09
+ Reading results into the database (SET command) will update the current 
+ displacement and force boundary conditions in the database with the     
+ values from the results file for that load set.  Note that any          
+ subsequent solutions will use these values unless action is taken to    
+ either SAVE the current values or not overwrite them (/EXIT,NOSAVE).    
+
+ OPENED FILE= D:\ghmx\ansysModelOut.out FOR COMMAND FILE DATA 
+
+
+ *GET  NODENUM   FROM  NODE  ITEM=COUN       VALUE=  128.000000     
+
+ *GET  OUTND     FROM  NODE  ITEM=NUM  MIN   VALUE=  1.00000000     
+
+ SET PARAMETER DIMENSIONS ON  OUTNODES TYPE=ARRA  DIMENSIONS=   128     1     1
+
+ SET PARAMETER DIMENSIONS ON  OUTXYZ TYPE=ARRA  DIMENSIONS=   128     3     1
+
+ SET PARAMETER DIMENSIONS ON  OUTUXUYUZ
+  TYPE=ARRA  DIMENSIONS=      128        3        1
+
+ SET PARAMETER DIMENSIONS ON  OUTNODETEMP
+  TYPE=ARRA  DIMENSIONS=      128        1        1
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  128.00     BY  1.0000    
+
+ PARAMETER OUTNODES(I) =     1.000000000    
+
+ PARAMETER OUTXYZ(I,1) =    -4.745753358    
+
+ PARAMETER OUTXYZ(I,2) =     7.405822833    
+
+ PARAMETER OUTXYZ(I,3) =    -5.133246011    
+
+ PARAMETER OUTND =     2.000000000    
+
+ *ENDDO  INDEX= I                               
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  128.00     BY  1.0000    
+
+ PARAMETER OUTNODES(I) =     0.000000000    
+
+ PARAMETER OUTUXUYUZ(I,1) =   -0.2461856286E-03
+
+ PARAMETER OUTUXUYUZ(I,2) =    0.4897155810E-03
+
+ PARAMETER OUTUXUYUZ(I,3) =   -0.1416561160    
+
+ PARAMETER OUTND =     1.000000000    
+
+ *ENDDO  INDEX= I                               
+
+ *GET  ELEMENTNUM  FROM  ELEM  ITEM=COUN           VALUE=  543.000000    
+
+ *GET  OUTEL     FROM  ELEM  ITEM=NUM  MIN       VALUE=  1.00000000    
+
+ SET PARAMETER DIMENSIONS ON  OUTELEMS TYPE=ARRA  DIMENSIONS=   543     1     1
+
+ SET PARAMETER DIMENSIONS ON  OUTNDLST TYPE=ARRA  DIMENSIONS=   543     8     1
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  543.00     BY  1.0000    
+
+ PARAMETER OUTELEMS(I) =     1.000000000    
+
+ *DO LOOP ON PARAMETER= J FROM  1.0000     TO  8.0000     BY  1.0000    
+
+ PARAMETER OUTNDLST(I,J) =     1.000000000    
+
+ *ENDDO  INDEX= J                               
+
+ PARAMETER OUTEL =     2.000000000    
+
+ *ENDDO  INDEX= I                               
+
+  COMMAND FILE CLOSED 
+
+
+ ***** END OF INPUT ENCOUNTERED *****
+
+
+ NUMBER OF WARNING MESSAGES ENCOUNTERED=          3
+ NUMBER OF ERROR   MESSAGES ENCOUNTERED=          0
+
+
+
+ ***** PROBLEM TERMINATED BY INDICATED ERROR(S) OR BY END OF INPUT DATA *****
+
++--------------------- A N S Y S   S T A T I S T I C S ------------------------+
+
+Release: Release 17.0       Build: 17.0       Update: UP20151214   Platform: WINDOWS x64 
+Date Run: 03/02/2017   Time: 12:16
+Operating System: Windows 7 Service Pack 1 (Build: 7601)
+Windows Process ID: 10056       
+
+Processor Model: Intel(R) Core(TM) i7-4770 CPU @ 3.40GHz
+
+Compiler: Intel(R) FORTRAN Compiler Version 15.0.2  (Build: 20150121)
+          Intel(R) C/C++ Compiler Version 15.0.2  (Build: 20150121)
+          Intel(R) Math Kernel Library Version 11.2.3 Product Build 20150413
+
+Number of machines requested            :    1
+Total number of cores available         :    8
+Number of physical cores available      :    4
+Number of processes requested           :    1
+Number of threads per process requested :    2
+Total number of cores requested         :    2 (Shared Memory Parallel)                    
+
+GPU Acceleration: Not Requested
+
+Job Name: internalforceinframe
+Working Directory: c:\Program Files\Rhinoceros 5 (64-bit)\System
+
+Total CPU time for main thread                    :        0.9 seconds
+Total CPU time summed for all threads             :        1.2 seconds
+
+Elapsed time spent pre-processing model (/PREP7)  :        0.0 seconds
+Elapsed time spent solution - preprocessing       :        0.0 seconds
+Elapsed time spent computing solution             :        0.1 seconds
+Elapsed time spent solution - postprocessing      :        0.0 seconds
+Elapsed time spent post-processing model (/POST1) :        0.0 seconds
+ 
+Equation solver used                              :            Sparse (symmetric)
+
+Maximum total memory used                         :       24.0 MB
+Maximum total memory allocated                    :     2112.0 MB
+Maximum total memory available                    :         16 GB
+
++------------------ E N D   A N S Y S   S T A T I S T I C S -------------------+
+
+
+ *---------------------------------------------------------------------------*
+ |                                                                           |
+ |                            ANSYS RUN COMPLETED                            |
+ |                                                                           |
+ |---------------------------------------------------------------------------|
+ |                                                                           |
+ | Ansys Release 17.0          Build 17.0         UP20151214     WINDOWS x64 |
+ |                                                                           |
+ |---------------------------------------------------------------------------|
+ |                                                                           |
+ | Database Requested(-db)  1024 MB    Scratch Memory Requested      1024 MB |
+ | Maximum Database Used       2 MB    Maximum Scratch Memory Used     22 MB |
+ |                                                                           |
+ |---------------------------------------------------------------------------|
+ |                                                                           |
+ |        CP Time      (sec) =          1.248       Time  =  12:16:10        |
+ |        Elapsed Time (sec) =          6.000       Date  =  03/02/2017      |
+ |                                                                           |
+ *---------------------------------------------------------------------------*

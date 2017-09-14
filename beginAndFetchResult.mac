@@ -1,0 +1,66 @@
+/PREP7
+/INPUT, D:\ghmx\rhinoModelImport.mac
+*CFOPEN,D:\ghmx\ansysModelOut,out   !!输出文件 
+
+
+
+*get,NodeNum,NODE,0,COUNT               !得到模型的所有节点数
+*get,OUTnd,NODE,0,NUM,MIN                       !得到模型的最小节点编号
+*dim,OUTnodes,array,NodeNum                     !定义一个存储节点的数组
+*dim,OUTxyz,array,NodeNum,3                     !定义一个存储节点坐标的数组
+*dim,OUTuxuyuz,array,NodeNum,3                     !定义一个存储节点坐标的数组
+*dim,OUTNodeTemp,array,NodeNum                  !定义一个存储节点的数组
+*do,i,1,NodeNum,1
+    OUTnodes(i)=OUTnd                              !将节点编号存储在nodes数组中
+    OUTxyz(i,1)=NX(OUTnd)                          !在xyz(i,1)中存储节点的X坐标
+    OUTxyz(i,2)=NY(OUTnd)                          !在xyz(i,1)中存储节点的Y坐标
+    OUTxyz(i,3)=NZ(OUTnd)                          !在xyz(i,1)中存储节点的Z坐标
+    !*Get,OUTNodeTemp(i),NODE,OUTnodes(i),TEMP
+    OUTnd=NDNEXT(OUTnd)                            !取得下一个节点编号
+*enddo
+
+*do,i,1,NodeNum,1
+    OUTnodes(i)=OUTnd                              !将节点编号存储在nodes数组中
+    OUTuxuyuz(i,1)=UX(i)                          !在xyz(i,1)中存储节点的X坐标
+    OUTuxuyuz(i,2)=UY(i)                          !在xyz(i,1)中存储节点的Y坐标
+    OUTuxuyuz(i,3)=UZ(i)                          !在xyz(i,1)中存储节点的Z坐标
+    !*Get,OUTNodeTemp(i),NODE,OUTnodes(i),TEMP
+    OUTnd=NDNEXT(OUTnd)                            !取得下一个节点编号
+*enddo
+
+*get,ElementNum,ELEM,0,COUNT                  !得到模型的所有单元数
+*get,OUTel,ELEM,0,NUM,MIN                        !得到模型的最小单元编号
+*dim,OUTelems,array,ElementNum                   !定义一个存储单元的数组   
+*dim,OUTndlst,array,ElementNum,8                 !定义一个存储节点坐标的数组
+*do,i,1,ElementNum,1
+    OUTelems(i)=OUTel                               !将单元编号存储在elems数组中
+    *do,j,1,8,1
+        OUTndlst(i,j)=NELEM(OUTel,j)                !将单元对应的节点编号存储在ndlst数组中
+    *enddo
+    OUTel=ELNEXT(OUTel)                             !取得下一个单元编号
+*enddo
+
+*vwrite,NodeNum,ElementNum
+('ZONE n='f6.1,'   e='f6.1,'    f=fepoint','et=brick')
+
+
+*vwrite,
+('NODE')
+*vwrite,OUTxyz(1,1),OUTxyz(1,2),OUTxyz(1,3),OUTNodeTemp(1)
+(4f12.6)
+
+*vwrite,
+('ELEMENT')
+!写各单元对应的节点号
+*vwrite,OUTndlst(1,1),OUTndlst(1,2),OUTndlst(1,3),OUTndlst(1,4),OUTndlst(1,5),OUTndlst(1,6),OUTndlst(1,7),OUTndlst(1,8)
+(8f6.0)
+
+*vwrite,
+('NODEU')
+*vwrite,OUTuxuyuz(1,1),OUTuxuyuz(1,2),OUTuxuyuz(1,3),OUTNodeTemp(1)
+(4f12.6)
+
+
+*cfclos 
+
+!内力结果
